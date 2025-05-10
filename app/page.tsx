@@ -18,7 +18,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link href="/inscription" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50 shadow-lg">
-                S'inscrire à l'événement
+                S&apos;inscrire à l&apos;événement
               </Link>
               <Link href="/streaming" className="inline-flex items-center justify-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-blue-800">
                 Accéder au streaming
@@ -50,9 +50,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h2 className="text-xl font-bold mb-2">Networking d'élite</h2>
+              <h2 className="text-xl font-bold mb-2">Networking d&apos;élite</h2>
               <p className="text-gray-600">
-                Rencontrez plus de 500 directeurs et responsables Customer Success d'entreprises de premier plan.
+                Rencontrez plus de 500 directeurs et responsables Customer Success d&apos;entreprises de premier plan.
               </p>
             </div>
 
@@ -75,7 +75,7 @@ export default function Home() {
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Intervenants d'exception</h2>
+            <h2 className="text-3xl font-bold mb-4">Intervenants d&apos;exception</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Des leaders du Customer Success partagent leur vision et expertise
             </p>
@@ -141,7 +141,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Thématiques 2025</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez les sujets qui définiront l'avenir du Customer Success Management
+              Découvrez les sujets qui définiront l&apos;avenir du Customer Success Management
             </p>
           </div>
 
@@ -149,14 +149,14 @@ export default function Home() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3 text-blue-700">IA et Automatisation en CSM</h3>
               <p className="text-gray-600">
-                Explorez comment l'intelligence artificielle révolutionne le Customer Success en automatisant les tâches répétitives et en prédisant les comportements clients.
+                Explorez comment l&apos;intelligence artificielle révolutionne le Customer Success en automatisant les tâches répétitives et en prédisant les comportements clients.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3 text-blue-700">Stratégies de rétention client</h3>
               <p className="text-gray-600">
-                Apprenez les meilleures pratiques pour réduire le churn et augmenter la fidélité client à l'ère de la concurrence digitale.
+                Apprenez les meilleures pratiques pour réduire le churn et augmenter la fidélité client à l&apos;ère de la concurrence digitale.
               </p>
             </div>
 
@@ -170,7 +170,7 @@ export default function Home() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3 text-blue-700">Voice of Customer</h3>
               <p className="text-gray-600">
-                Transformez le feedback client en actions concrètes grâce à des méthodologies innovantes de collecte et d'analyse de données.
+                Transformez le feedback client en actions concrètes grâce à des méthodologies innovantes de collecte et d&apos;analyse de données.
               </p>
             </div>
 
@@ -197,7 +197,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Restez informé</h2>
             <p className="text-xl mb-8 text-blue-100">
-              Inscrivez-vous à notre newsletter pour être alerté des nouvelles annonces concernant l'événement et recevoir nos contenus exclusifs sur le Customer Success
+              Inscrivez-vous à notre newsletter pour être alerté des nouvelles annonces concernant l&apos;événement et recevoir nos contenus exclusifs sur le Customer Success
             </p>
 
             <form className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
@@ -207,12 +207,12 @@ export default function Home() {
                 className="flex-grow px-4 py-3 rounded-md text-gray-900 focus:outline-none"
               />
               <button type="submit" className="px-6 py-3 bg-white text-blue-700 font-medium rounded-md hover:bg-blue-50">
-                S'inscrire
+                S&apos;inscrire
               </button>
             </form>
 
             <p className="text-sm mt-4 text-blue-200">
-              En vous inscrivant, vous acceptez de recevoir des communications d'Engage Paris. Vous pourrez vous désinscrire à tout moment.
+              En vous inscrivant, vous acceptez de recevoir des communications d&apos;Engage Paris. Vous pourrez vous désinscrire à tout moment.
             </p>
           </div>
         </div>

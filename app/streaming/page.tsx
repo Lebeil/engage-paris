@@ -13,7 +13,7 @@ export default function Streaming() {
         entreprise: '',
         taille: '',
         fonction: '',
-        interet: []
+        interet: [] as string[]
     });
 
     const [submitted, setSubmitted] = useState(false);
@@ -69,7 +69,7 @@ export default function Streaming() {
                         </div>
                         <h1 className="text-3xl font-bold mb-4 text-gray-900">Inscription au streaming confirmée !</h1>
                         <p className="text-xl mb-8 text-gray-600">
-                            Merci de vous être inscrit au streaming d'Engage Paris 2025. Vous recevrez un email avec les instructions de connexion avant l&apos;événement.
+                            Merci de vous être inscrit au streaming d&apos;Engage Paris 2025. Vous recevrez un email avec les instructions de connexion avant l&apos;événement.
                         </p>
                         <Link href="/" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Retour à l&apos;accueil
@@ -181,7 +181,7 @@ export default function Streaming() {
                                 <div className="flex">
                                     <div className="flex-shrink-0 w-24 text-gray-500 font-medium">09:00</div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Ouverture de l'événement</h4>
+                                        <h4 className="font-semibold text-gray-900">Ouverture de l&apos;événement</h4>
                                         <p className="text-gray-600 text-sm">Introduction par Sophie Laurent, Directrice Customer Success chez Salesforce</p>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@ export default function Streaming() {
                                 <div className="flex">
                                     <div className="flex-shrink-0 w-24 text-gray-500 font-medium">10:00</div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">IA et automatisation : transformer l'expérience client</h4>
+                                        <h4 className="font-semibold text-gray-900">IA et automatisation : transformer l&apos;expérience client</h4>
                                         <p className="text-gray-600 text-sm">Conférence avec Thomas Moreau, VP Customer Experience chez HubSpot</p>
                                     </div>
                                 </div>
@@ -308,7 +308,7 @@ export default function Streaming() {
 
                                 <div>
                                     <label htmlFor="taille" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Taille de l'entreprise *
+                                        Taille de l&apos;entreprise *
                                     </label>
                                     <select
                                         id="taille"
@@ -392,7 +392,7 @@ export default function Streaming() {
                                     <Link href="/politique-confidentialite" className="text-blue-600 hover:underline">
                                         politique de confidentialité
                                     </Link>
-                                    {' '}et de recevoir des communications liées à l'événement.
+                                    {' '}et de recevoir des communications liées à l&apos;événement.
                                 </p>
                             </div>
                         </form>
@@ -401,10 +401,10 @@ export default function Streaming() {
                     {/* Alternative */}
                     <div className="mt-10 text-center">
                         <p className="text-gray-600 mb-4">
-                            Vous préférez assister à l'événement en personne ?
+                            Vous préférez assister à l&apos;événement en personne ?
                         </p>
                         <Link href="/inscription" className="text-blue-600 font-medium hover:underline">
-                            Inscrivez-vous à l'événement physique →
+                            Inscrivez-vous à l&apos;événement physique →
                         </Link>
                     </div>
                 </div>

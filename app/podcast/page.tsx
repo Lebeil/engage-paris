@@ -87,7 +87,7 @@ export default function Podcast() {
                                 Écouter les épisodes
                             </Link>
                             <Link href="#subscribe" className="inline-flex items-center justify-center px-5 py-3 border border-blue-600 text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50">
-                                S'abonner au podcast
+                                S&apos;abonner au podcast
                             </Link>
                         </div>
                     </div>
@@ -268,7 +268,7 @@ export default function Podcast() {
                                     type="submit"
                                     className="px-6 py-3 bg-white text-blue-700 font-medium rounded-md hover:bg-blue-50"
                                 >
-                                    S'inscrire
+                                    S&apos;inscrire
                                 </button>
                             </form>
                             <p className="text-xs mt-4 text-blue-200">

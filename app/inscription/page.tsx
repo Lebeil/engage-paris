@@ -14,7 +14,7 @@ export default function Inscription() {
         entreprise: '',
         taille: '',
         fonction: '',
-        interet: []
+        interet: [] as string[]
     });
 
     const [submitted, setSubmitted] = useState(false);

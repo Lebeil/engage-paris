@@ -1,15 +1,29 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-r from-blue-700 to-blue-900 text-white py-20 overflow-hidden">
+        {/* Vidéo en arrière-plan */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            className="object-cover w-full h-full opacity-50"
+          >
+            <source src="/videos/resume2024.mp4" type="video/mp4" />
+          </video>
+          {/* Overlay pour assurer la lisibilité du texte */}
+          <div className="absolute inset-0 bg-blue-900 bg-opacity-60"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Engage Paris 2025
-              <span className="block text-blue-200 mt-2">
+              Engage Paris 2025 <span className="block text-blue-200 mt-2">
                 Le rendez-vous incontournable des <span className="underline decoration-blue-400">leaders du Customer Success</span>
               </span>
             </h1>
@@ -85,45 +99,61 @@ export default function Home() {
             {/* Speaker 1 */}
             <div className="text-center">
               <div className="relative w-40 h-40 mx-auto mb-4 overflow-hidden rounded-full">
-                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500">Photo</span>
-                </div>
+                <Image
+                  src="/images/speaker1.jpg"
+                  alt="Sue Nabeih Moore"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <h3 className="text-xl font-semibold">Sophie Laurent</h3>
-              <p className="text-blue-600">Directrice Customer Success, Salesforce</p>
+              <h3 className="text-xl font-semibold">Sue Nabeih Moore</h3>
+              <p className="text-blue-600">Customer Experience Manager | Acme</p>
             </div>
 
             {/* Speaker 2 */}
             <div className="text-center">
               <div className="relative w-40 h-40 mx-auto mb-4 overflow-hidden rounded-full">
-                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500">Photo</span>
-                </div>
+                <Image
+                  src="/images/speaker2.jpg"
+                  alt="Sébastien Brun"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <h3 className="text-xl font-semibold">Thomas Moreau</h3>
-              <p className="text-blue-600">VP Customer Experience, HubSpot</p>
+              <h3 className="text-xl font-semibold">Sébastien Brun</h3>
+              <p className="text-blue-600">Director CX | TechProgress</p>
             </div>
 
             {/* Speaker 3 */}
             <div className="text-center">
               <div className="relative w-40 h-40 mx-auto mb-4 overflow-hidden rounded-full">
-                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500">Photo</span>
-                </div>
+                <Image
+                  src="/images/speaker3.jpg"
+                  alt="Bérénice Carropo"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <h3 className="text-xl font-semibold">Marie Durand</h3>
-              <p className="text-blue-600">Head of Customer Success, Qonto</p>
+              <h3 className="text-xl font-semibold">Bérénice Carropo</h3>
+              <p className="text-blue-600">Head of Customer Success | Nexus</p>
             </div>
 
             {/* Speaker 4 */}
             <div className="text-center">
               <div className="relative w-40 h-40 mx-auto mb-4 overflow-hidden rounded-full">
-                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500">Photo</span>
-                </div>
+                <Image
+                  src="/images/speaker4.jpg"
+                  alt="Elliot Ghassia"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <h3 className="text-xl font-semibold">Pierre Martin</h3>
-              <p className="text-blue-600">Directeur Relation Client, Doctolib</p>
+              <h3 className="text-xl font-semibold">Elliot Ghassia</h3>
+              <p className="text-blue-600">CEO | CXPower</p>
             </div>
           </div>
 
@@ -219,19 +249,33 @@ export default function Home() {
       </section>
 
       {/* Companies */}
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Ils seront présents</h2>
+            <h2 className="text-3xl font-bold mb-4 text-black">Ils seront présents</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Rejoignez les leaders du Customer Success issus de ces entreprises
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-16 w-32 bg-gray-100 rounded flex items-center justify-center">
-                <span className="text-gray-400 font-medium">Logo</span>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center justify-items-center">
+            {[
+              { name: "Gainsight", img: "/images/gainsight.png" },
+              { name: "Planhat", img: "/images/planhat.png" },
+              { name: "MeltingSpot", img: "/images/meltingspot.png" },
+              { name: "SuccessChain", img: "/images/successchain.png" },
+              { name: "RocketSchool", img: "/images/rocketschool.png" },
+              { name: "KareSchool", img: "/images/kareschool.png" },
+              { name: "Dust", img: "/images/dust.png" }
+            ].map((company) => (
+              <div key={company.name} className="h-24 w-44 bg-white rounded shadow-md flex items-center justify-center p-2">
+                <Image
+                  src={company.img}
+                  alt={`Logo ${company.name}`}
+                  width={200}
+                  height={100}
+                  className="max-h-20 max-w-40 object-contain"
+                />
               </div>
             ))}
           </div>

@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import logo from '@/public/images/logo.png';
 
 export default function Footer() {
     return (
@@ -8,8 +10,7 @@ export default function Footer() {
                     {/* Logo et description */}
                     <div className="col-span-1 md:col-span-2">
                         <Link href="/" className="flex items-center">
-                            <span className="text-2xl font-bold text-blue-400">Engage Paris</span>
-                            <span className="ml-2 text-sm bg-blue-900 text-blue-300 py-1 px-2 rounded-md">CSM 2025</span>
+                            <Image src={logo} alt="Engage Paris" width={100} height={100} />
                         </Link>
                         <p className="mt-4 text-gray-300 text-sm">
                             La conférence annuelle de référence pour les professionnels du Customer Success Management en France.

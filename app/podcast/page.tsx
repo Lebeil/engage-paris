@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 const episodes = [
     {
@@ -64,6 +67,20 @@ const episodes = [
 ];
 
 export default function Podcast() {
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const togglePlay = () => {
+        const audioElement = document.getElementById('featured-episode-audio') as HTMLAudioElement;
+
+        if (isPlaying) {
+            audioElement?.pause();
+        } else {
+            audioElement?.play();
+        }
+
+        setIsPlaying(!isPlaying);
+    };
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,14 +115,39 @@ export default function Podcast() {
                             <div className="md:flex-shrink-0 md:w-2/5">
                                 <div className="h-64 md:h-full bg-blue-600 relative">
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="text-center">
-                                            <div className="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 text-white rounded-full backdrop-blur-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                                            </div>
-                                            <p className="mt-4 text-white font-medium">Nouvel épisode</p>
+                                        <div className="text-center px-6">
+                                            {/* Lecteur audio caché */}
+                                            <audio
+                                                id="featured-episode-audio"
+                                                className="hidden"
+                                                preload="metadata"
+                                            >
+                                                <source src="/podcast/podcast.mp3" type="audio/mpeg" />
+                                                Votre navigateur ne supporte pas la lecture audio.
+                                            </audio>
+
+                                            {/* Bouton de lecture personnalisé */}
+                                            <button
+                                                onClick={togglePlay}
+                                                className="inline-flex flex-col items-center justify-center"
+                                                aria-label={isPlaying ? "Pause" : "Lecture"}
+                                            >
+                                                <div className="w-20 h-20 bg-white bg-opacity-20 text-white rounded-full backdrop-blur-sm flex items-center justify-center mb-4 hover:bg-opacity-30 transition-all transform hover:scale-105">
+                                                    {isPlaying ? (
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                    ) : (
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <span className="text-white font-medium">
+                                                    {isPlaying ? "En cours de lecture" : "Écouter l'épisode"}
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

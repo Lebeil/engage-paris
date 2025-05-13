@@ -148,7 +148,7 @@ export default function Streaming() {
                             <div className="mt-6 pt-6 border-t border-gray-200">
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="text-gray-600">Tarif streaming</span>
-                                    <span className="text-blue-700 font-semibold">Gratuit</span>
+                                    <span className="text-blue-700 font-semibold">50,00 €</span>
                                 </div>
                                 <p className="text-sm text-gray-500 mb-4">
                                     Sur inscription uniquement - Places limitées

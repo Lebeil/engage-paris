@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import logo from '@/public/images/logo.png';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,8 +14,7 @@ export default function Header() {
                 <div className="flex justify-between items-center h-20">
                     <div className="flex-shrink-0">
                         <Link href="/" className="flex items-center">
-                            <span className="text-2xl font-bold text-blue-700">Engage Paris</span>
-                            <span className="ml-2 text-sm bg-blue-100 text-blue-800 py-1 px-2 rounded-md">CSM 2025</span>
+                            <Image src={logo} alt="Engage Paris" width={100} height={100} />
                         </Link>
                     </div>
 

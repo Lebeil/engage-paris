@@ -97,7 +97,7 @@ export default function Podcast() {
                             Engage Success Talks
                         </h1>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                            Le podcast qui décrypte les meilleures pratiques du Customer Success Management avec les leaders du secteur
+                            Le podcast qui décrypte les meilleures pratiques du Customer Success Manager avec les leaders du secteur
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <Link href="#episodes" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
@@ -156,7 +156,7 @@ export default function Podcast() {
                                 <div className="uppercase tracking-wide text-sm text-blue-600 font-semibold mb-1">
                                     Épisode {episodes[0].id} • {episodes[0].date}
                                 </div>
-                                <h2 className="text-2xl font-bold mb-2 hover:text-blue-600">
+                                <h2 className="text-2xl font-bold mb-2 text-black hover:text-blue-600">
                                     <Link href={`/podcast/${episodes[0].slug}`}>{episodes[0].title}</Link>
                                 </h2>
                                 <div className="flex items-center mb-4">
@@ -178,9 +178,6 @@ export default function Podcast() {
                                         </svg>
                                         {episodes[0].duration}
                                     </div>
-                                    <Link href={`/podcast/${episodes[0].slug}`} className="text-blue-600 hover:text-blue-800 font-medium">
-                                        Écouter maintenant →
-                                    </Link>
                                 </div>
                             </div>
                         </div>

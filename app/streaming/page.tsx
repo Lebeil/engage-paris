@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -17,6 +17,8 @@ export default function Streaming() {
     });
 
     const [submitted, setSubmitted] = useState(false);
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -55,6 +57,13 @@ export default function Streaming() {
         setTimeout(() => {
             router.push('/');
         }, 5000);
+    };
+
+    const handleVideoPlay = () => {
+        if (videoRef.current) {
+            videoRef.current.play();
+            setIsVideoPlaying(true);
+        }
     };
 
     if (submitted) {
@@ -99,21 +108,42 @@ export default function Streaming() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                         <div className="lg:col-span-2">
                             <div className="aspect-video bg-gray-200 rounded-lg relative overflow-hidden">
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 mx-auto text-blue-500 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <p className="mt-4 text-gray-600 font-medium">Aperçu de l&apos;édition 2024</p>
+                                {/* Suppression de la div d'arrière-plan car nous utilisons poster */}
+
+                                <video
+                                    ref={videoRef}
+                                    className="w-full h-full object-cover"
+                                    controls={isVideoPlaying}
+                                    poster="/videos/preview.jpg"
+                                    onPlay={() => setIsVideoPlaying(true)}
+                                    onPause={() => setIsVideoPlaying(false)}
+                                >
+                                    <source src="/videos/resume2024.mp4" type="video/mp4" />
+                                    Votre navigateur ne prend pas en charge la lecture vidéo.
+                                </video>
+
+                                {/* Overlay avec bouton centré qui disparaît lorsque la vidéo est en lecture */}
+                                {!isVideoPlaying && (
+                                    <div
+                                        className="absolute inset-0 flex items-center justify-center bg-black/50"
+                                        onClick={handleVideoPlay}
+                                    >
+                                        <div className="text-center p-4 cursor-pointer">
+                                            <div className="w-20 h-20 bg-blue-600/80 hover:bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 transform transition-transform hover:scale-110">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                                </svg>
+                                            </div>
+                                            <p className="text-white font-medium text-lg">Aperçu de l&apos;édition 2024</p>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-md p-6">
                             <h2 className="text-xl font-bold mb-4 text-blue-700">Ce que vous obtiendrez</h2>
-                            <ul className="space-y-3">
+                            <ul className="space-y-3 text-gray-700">
                                 <li className="flex items-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 mt-0.5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

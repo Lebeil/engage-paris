@@ -6,20 +6,16 @@ import { useState } from 'react';
 const episodes = [
     {
         id: 1,
-        title: "L'avenir du Customer Success avec l'IA générative",
-        description: "Comment l'intelligence artificielle générative transforme les interactions avec les clients et permet aux CSM de se concentrer sur les tâches à forte valeur ajoutée.",
-        guest: "Sophie Laurent",
-        guestTitle: "Directrice Customer Success, Salesforce",
-        duration: "42 min",
-        date: "15 avril 2024",
+        title: "Et si on se donnait RDV à Engage Paris le 7 juin ? Avec les organisateurs de l'évènement",
+        description: "Si vous mourrez d'impatience de retrouver vos pairs CSMs en vrai pour partager des bonnes pratiques, trouver des réponses à vos challenges, vous inspirer et progresser dans votre carrière, alors cet épisode est fait pour vous ! Et plus que ce épisode, c'est surtout Engage Paris  qui devrait vous intéresser ! LE rendez-vous du Customer Success en français dans le texte revient pour la 3ème fois, et après une deuxième édition virtuelle, cette nouvelle édition aura lieu le 7 juin au Karé, à Boulogne Billancourt. Et qui de mieux placé pour en parler que les 4 organisateurs de l'évènement ! J'ai donc eu le plaisir de repartager un moment avec Sue , Valentin , Justine  et Gabrièle  pour parler de l'évènement, du programme, de ce à quoi vous devez vous attendre, et de la manière de préparer au mieux ce rendez)vous incontournable !",
+        duration: "21 min",
+        date: "23 avril 2022",
         slug: "avenir-customer-success-ia-generative"
     },
     {
         id: 2,
         title: "Stratégies d'expansion et upsell au sein des comptes existants",
         description: "Découvrez comment transformer votre équipe Customer Success en moteur de croissance grâce à des stratégies d'expansion de revenus efficaces.",
-        guest: "Thomas Moreau",
-        guestTitle: "VP Customer Experience, HubSpot",
         duration: "38 min",
         date: "1 avril 2024",
         slug: "strategies-expansion-upsell"
@@ -28,8 +24,6 @@ const episodes = [
         id: 3,
         title: "La convergence entre Product et Customer Success",
         description: "Comment aligner les équipes produit et Customer Success pour créer une expérience utilisateur cohérente et maximiser l'adoption de vos solutions.",
-        guest: "Marie Durand",
-        guestTitle: "Head of Customer Success, Qonto",
         duration: "45 min",
         date: "15 mars 2024",
         slug: "convergence-product-customer-success"
@@ -38,8 +32,6 @@ const episodes = [
         id: 4,
         title: "Mesurer l'impact financier du Customer Success",
         description: "Les métriques essentielles pour démontrer la valeur de votre département CS et obtenir plus de ressources auprès de votre direction.",
-        guest: "Pierre Martin",
-        guestTitle: "Directeur Relation Client, Doctolib",
         duration: "36 min",
         date: "1 mars 2024",
         slug: "impact-financier-customer-success"
@@ -48,8 +40,6 @@ const episodes = [
         id: 5,
         title: "Onboarding à l'échelle : automatiser sans déshumaniser",
         description: "Comment créer un processus d'onboarding évolutif qui conserve la personnalisation nécessaire pour engager vos clients dès le départ.",
-        guest: "Clara Dubois",
-        guestTitle: "Customer Onboarding Director, Datadog",
         duration: "40 min",
         date: "15 février 2024",
         slug: "onboarding-echelle-automatisation"
@@ -58,8 +48,6 @@ const episodes = [
         id: 6,
         title: "Les défis du Customer Success en B2C",
         description: "Adapter les méthodologies traditionnelles du CSM pour réussir dans un environnement B2C à grande échelle.",
-        guest: "Lucas Roche",
-        guestTitle: "Global Head of CS, Blablacar",
         duration: "43 min",
         date: "1 février 2024",
         slug: "defis-customer-success-b2c"
@@ -68,6 +56,7 @@ const episodes = [
 
 export default function Podcast() {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [showFullDescription, setShowFullDescription] = useState(false);
 
     const togglePlay = () => {
         const audioElement = document.getElementById('featured-episode-audio') as HTMLAudioElement;
@@ -159,17 +148,16 @@ export default function Podcast() {
                                 <h2 className="text-2xl font-bold mb-2 text-black hover:text-blue-600">
                                     <Link href={`/podcast/${episodes[0].slug}`}>{episodes[0].title}</Link>
                                 </h2>
-                                <div className="flex items-center mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
-                                        <span className="text-gray-500 font-medium text-sm">{episodes[0].guest.split(' ').map(n => n[0]).join('')}</span>
-                                    </div>
-                                    <div>
-                                        <p className="font-medium">{episodes[0].guest}</p>
-                                        <p className="text-sm text-gray-500">{episodes[0].guestTitle}</p>
-                                    </div>
-                                </div>
                                 <p className="text-gray-600 mb-6">
-                                    {episodes[0].description}
+                                    {showFullDescription
+                                        ? episodes[0].description
+                                        : episodes[0].description.substring(0, 180) + '...'}
+                                    <button
+                                        onClick={() => setShowFullDescription(!showFullDescription)}
+                                        className="ml-2 text-blue-600 hover:text-blue-800 font-medium"
+                                    >
+                                        {showFullDescription ? 'Voir moins' : 'En savoir plus'}
+                                    </button>
                                 </p>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center text-gray-500 text-sm">
@@ -217,27 +205,7 @@ export default function Podcast() {
 
                                         <div className="sm:flex sm:justify-between sm:items-start">
                                             <div className="sm:flex sm:items-start sm:flex-grow">
-                                                <div className="flex-shrink-0 hidden sm:block">
-                                                    <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
-                                                        <span className="text-gray-500 font-medium text-sm">{episode.guest.split(' ').map(n => n[0]).join('')}</span>
-                                                    </div>
-                                                </div>
                                                 <div>
-                                                    <div className="flex items-center mb-2 sm:hidden">
-                                                        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-2">
-                                                            <span className="text-gray-500 font-medium text-xs">{episode.guest.split(' ').map(n => n[0]).join('')}</span>
-                                                        </div>
-                                                        <div>
-                                                            <p className="font-medium text-sm">{episode.guest}</p>
-                                                            <p className="text-xs text-gray-500">{episode.guestTitle}</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="hidden sm:block mb-2">
-                                                        <p className="font-medium">{episode.guest}</p>
-                                                        <p className="text-sm text-gray-500">{episode.guestTitle}</p>
-                                                    </div>
-
                                                     <p className="text-gray-600 text-sm">
                                                         {episode.description}
                                                     </p>

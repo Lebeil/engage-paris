@@ -1,63 +1,10 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function Streaming() {
-    const router = useRouter();
-    const [formData, setFormData] = useState({
-        prenom: '',
-        nom: '',
-        email: '',
-        entreprise: '',
-        taille: '',
-        fonction: '',
-        interet: [] as string[]
-    });
-
-    const [submitted, setSubmitted] = useState(false);
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = e.target;
-        setFormData(prev => {
-            const interets = [...(prev.interet as string[])];
-            if (checked) {
-                interets.push(value);
-            } else {
-                const index = interets.indexOf(value);
-                if (index > -1) {
-                    interets.splice(index, 1);
-                }
-            }
-            return {
-                ...prev,
-                interet: interets
-            };
-        });
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Ici, vous pouvez ajouter la logique pour soumettre les données à votre API
-        console.log(formData);
-        setSubmitted(true);
-
-        // Redirection après quelques secondes
-        setTimeout(() => {
-            router.push('/');
-        }, 5000);
-    };
 
     const handleVideoPlay = () => {
         if (videoRef.current) {
@@ -65,29 +12,6 @@ export default function Streaming() {
             setIsVideoPlaying(true);
         }
     };
-
-    if (submitted) {
-        return (
-            <div className="min-h-screen bg-gray-50 py-20">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8 text-center">
-                        <div className="inline-flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-600 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <h1 className="text-3xl font-bold mb-4 text-gray-900">Inscription au streaming confirmée !</h1>
-                        <p className="text-xl mb-8 text-gray-600">
-                            Merci de vous être inscrit au streaming d&apos;Engage Paris 2025. Vous recevrez un email avec les instructions de connexion avant l&apos;événement.
-                        </p>
-                        <Link href="/" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                            Retour à l&apos;accueil
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12">
@@ -108,8 +32,6 @@ export default function Streaming() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                         <div className="lg:col-span-2">
                             <div className="aspect-video bg-gray-200 rounded-lg relative overflow-hidden">
-                                {/* Suppression de la div d'arrière-plan car nous utilisons poster */}
-
                                 <video
                                     ref={videoRef}
                                     className="w-full h-full object-cover"
@@ -119,14 +41,22 @@ export default function Streaming() {
                                     onPause={() => setIsVideoPlaying(false)}
                                 >
                                     <source src="/videos/resume2024.mp4" type="video/mp4" />
+                                    <track
+                                        kind="captions"
+                                        src="/videos/captions-fr.vtt"
+                                        srcLang="fr"
+                                        label="Français"
+                                        default
+                                    />
                                     Votre navigateur ne prend pas en charge la lecture vidéo.
                                 </video>
 
                                 {/* Overlay avec bouton centré qui disparaît lorsque la vidéo est en lecture */}
                                 {!isVideoPlaying && (
-                                    <div
-                                        className="absolute inset-0 flex items-center justify-center bg-black/50"
+                                    <button
+                                        className="absolute inset-0 flex items-center justify-center bg-black/50 w-full"
                                         onClick={handleVideoPlay}
+                                        aria-label="Lire la vidéo"
                                     >
                                         <div className="text-center p-4 cursor-pointer">
                                             <div className="w-20 h-20 bg-blue-600/80 hover:bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 transform transition-transform hover:scale-110">
@@ -136,7 +66,7 @@ export default function Streaming() {
                                             </div>
                                             <p className="text-white font-medium text-lg">Aperçu de l&apos;édition 2024</p>
                                         </div>
-                                    </div>
+                                    </button>
                                 )}
                             </div>
                         </div>
@@ -184,7 +114,7 @@ export default function Streaming() {
                                     Sur inscription uniquement - Places limitées
                                 </p>
                                 <div className="flex justify-center">
-                                    <a href="#inscription" className="w-full inline-flex justify-center items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                    <a href="https://www.engage.paris/registration/676ab85f9b2a8f025d9f48ed" className="w-full inline-flex justify-center items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                         Réserver ma place
                                     </a>
                                 </div>
@@ -199,67 +129,204 @@ export default function Streaming() {
                                 Programme des conférences en streaming
                             </h2>
                             <p className="text-gray-600">
-                                Deux jours dédiés aux meilleures pratiques du Customer Success Management
+                                Une journée dédiée aux meilleures pratiques du Customer Success Manager
                             </p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
-                                <h3 className="text-lg font-semibold text-blue-800">Jour 1 - 25 Mars 2025</h3>
-                            </div>
-                            <div className="p-6 space-y-6">
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">09:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Ouverture de l&apos;événement</h4>
-                                        <p className="text-gray-600 text-sm">Introduction par Sophie Laurent, Directrice Customer Success chez Salesforce</p>
-                                    </div>
-                                </div>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-blue-50">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                                Créneau Horaire
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                                Type de session
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                                Titre
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                                Intervenant
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        <tr className="bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                9h15/9h30
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" colSpan={3}>
+                                                <div className="flex items-center justify-center">
+                                                    <span>🎤 Ouverture</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                9h30/9h45
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Keynote inspirante
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
 
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">10:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">IA et automatisation : transformer l&apos;expérience client</h4>
-                                        <p className="text-gray-600 text-sm">Conférence avec Thomas Moreau, VP Customer Experience chez HubSpot</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">14:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Table ronde : Les métriques qui comptent vraiment</h4>
-                                        <p className="text-gray-600 text-sm">Discussion avec 4 experts du Customer Success</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="px-6 py-4 bg-blue-50 border-b border-blue-100 border-t">
-                                <h3 className="text-lg font-semibold text-blue-800">Jour 2 - 26 Mars 2025</h3>
-                            </div>
-                            <div className="p-6 space-y-6">
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">09:30</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Scaling Customer Success : adapter sa stratégie</h4>
-                                        <p className="text-gray-600 text-sm">Workshop animé par Marie Durand, Head of Customer Success chez Qonto</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">11:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Customer Success et Revenus : le duo gagnant</h4>
-                                        <p className="text-gray-600 text-sm">Présentation par Pierre Martin, Directeur Relation Client chez Doctolib</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">16:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Clôture et perspectives 2026</h4>
-                                        <p className="text-gray-600 text-sm">Session interactive avec tous les participants</p>
-                                    </div>
-                                </div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Surprise
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                9h45/10h10
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Keynote inspirante
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Le Customer Success augmenté: comment l&apos;IA transforme notre métier
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Aurelien Mars
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                10h10/10h30
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Keynote sponsors
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Real World CS Strategies to Crush NRR!
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Helena Naverbrant
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                10h30/11h
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" colSpan={3}>
+                                                <div className="flex items-center justify-center">
+                                                    <span>☕ Pause</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" rowSpan={2}>
+                                                11h/12h30
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" rowSpan={2}>
+                                                Keynotes mixte
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Aligner CS & Produit : les clés d&apos;une collaboration win-win pour faire de la voix du client une réalité produit
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Bérénice Carrega
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Customer Success payant : quand vos clients demandent l&apos;addition et reviennent !
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Sebastien Brun
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                12h30/14h
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" colSpan={3}>
+                                                <div className="flex items-center justify-center">
+                                                    <span>🍽️ Pause déjeuner</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" rowSpan={2}>
+                                                14h/15h15
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" rowSpan={2}>
+                                                Keynotes CS
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Multipliez vos contacts, multipliez votre succès
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Julie Cotovio
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Devenir un CSM Stratégique : Vision, Transformation et Impact Client – Le Cas Orange et leur Transition vers la Fibre
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Jérôme Couzy
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                15h15/15h45
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" colSpan={3}>
+                                                <div className="flex items-center justify-center">
+                                                    <span>☕ Pause</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                15h45/16h05
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Keynote sponsors
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                The AI-Enhanced, Human-Led Future of Customer Success
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Keith Pearce
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" rowSpan={2}>
+                                                16h15/17h30
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" rowSpan={2}>
+                                                keynotes Leaders
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Grandir sans exploser : le secret d&apos;un Customer Success scalable
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Jonathan Piloquet
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-6 py-4 text-sm text-gray-700">
+                                                Faire du Customer Success un pilier stratégique : quelles clés pour embarquer le Comex
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                Francesca Bonavita + Souphaphone Ortega
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                17h30/18h
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700" colSpan={3}>
+                                                <div className="flex items-center justify-center">
+                                                    <span>🎤 Clôture</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -268,174 +335,18 @@ export default function Streaming() {
                         </div>
                     </div>
 
-                    {/* Formulaire d'inscription */}
-                    <div id="inscription" className="bg-white rounded-lg shadow-md p-8">
-                        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">
-                            Inscrivez-vous au streaming
-                        </h2>
-
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label htmlFor="prenom" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Prénom *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="prenom"
-                                        name="prenom"
-                                        value={formData.prenom}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="nom" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Nom *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="nom"
-                                        name="nom"
-                                        value={formData.nom}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Email professionnel *
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="entreprise" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Entreprise *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="entreprise"
-                                        name="entreprise"
-                                        value={formData.entreprise}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="taille" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Taille de l&apos;entreprise *
-                                    </label>
-                                    <select
-                                        id="taille"
-                                        name="taille"
-                                        value={formData.taille}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    >
-                                        <option value="">Sélectionnez...</option>
-                                        <option value="1-49">1-49 employés</option>
-                                        <option value="50-199">50-199 employés</option>
-                                        <option value="200-499">200-499 employés</option>
-                                        <option value="500-999">500-999 employés</option>
-                                        <option value="1000+">1000+ employés</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="fonction" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Fonction *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="fonction"
-                                        name="fonction"
-                                        value={formData.fonction}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Ex: Directeur Customer Success"
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Thématiques d'intérêt */}
-                            <div className="mt-8">
-                                <h3 className="text-lg font-medium text-gray-900 mb-4">Quelles thématiques vous intéressent particulièrement ?</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    {[
-                                        'IA et automatisation en CSM',
-                                        'Stratégies de rétention client',
-                                        'Customer Health Score',
-                                        'Voice of Customer',
-                                        'Scaling Customer Success',
-                                        'CSM et Revenue Growth',
-                                        'Onboarding client',
-                                        'Success Planning'
-                                    ].map((theme) => (
-                                        <div key={theme} className="flex items-start">
-                                            <input
-                                                id={`stream-${theme}`}
-                                                name="interet"
-                                                type="checkbox"
-                                                value={theme}
-                                                onChange={handleCheckboxChange}
-                                                className="h-4 w-4 mt-1 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                            />
-                                            <label htmlFor={`stream-${theme}`} className="ml-2 block text-sm text-gray-700">
-                                                {theme}
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Submit Button */}
-                            <div className="mt-8 flex justify-center">
-                                <button
-                                    type="submit"
-                                    className="px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                >
-                                    Réserver ma place pour le streaming
-                                </button>
-                            </div>
-
-                            {/* Privacy notice */}
-                            <div className="mt-4 text-center text-sm text-gray-500">
-                                <p>
-                                    En vous inscrivant, vous acceptez notre{' '}
-                                    <Link href="/politique-confidentialite" className="text-blue-600 hover:underline">
-                                        politique de confidentialité
-                                    </Link>
-                                    {' '}et de recevoir des communications liées à l&apos;événement.
-                                </p>
-                            </div>
-                        </form>
-                    </div>
-
-                    {/* Alternative */}
-                    <div className="mt-10 text-center">
-                        <p className="text-gray-600 mb-4">
-                            Vous préférez assister à l&apos;événement en personne ?
+                    {/* CTA Final */}
+                    <div className="bg-blue-700 text-white rounded-lg shadow-md p-8 mb-16 text-center">
+                        <h2 className="text-2xl font-bold mb-4">Prêt à rejoindre notre communauté CS ?</h2>
+                        <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+                            Réservez votre place maintenant pour accéder au streaming de l&apos;événement et ne manquez aucune session de cette journée exceptionnelle dédiée au Customer Success.
                         </p>
-                        <Link href="/inscription" className="text-blue-600 font-medium hover:underline">
-                            Inscrivez-vous à l&apos;événement physique →
-                        </Link>
+                        <a
+                            href="https://www.engage.paris/registration/676ab85f9b2a8f025d9f48ed"
+                            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50"
+                        >
+                            S&apos;inscrire maintenant
+                        </a>
                     </div>
                 </div>
             </div>

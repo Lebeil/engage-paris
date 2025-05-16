@@ -2,62 +2,10 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function Streaming() {
-    const router = useRouter();
-    const [formData, setFormData] = useState({
-        prenom: '',
-        nom: '',
-        email: '',
-        entreprise: '',
-        taille: '',
-        fonction: '',
-        interet: [] as string[]
-    });
-
-    const [submitted, setSubmitted] = useState(false);
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = e.target;
-        setFormData(prev => {
-            const interets = [...(prev.interet as string[])];
-            if (checked) {
-                interets.push(value);
-            } else {
-                const index = interets.indexOf(value);
-                if (index > -1) {
-                    interets.splice(index, 1);
-                }
-            }
-            return {
-                ...prev,
-                interet: interets
-            };
-        });
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Ici, vous pouvez ajouter la logique pour soumettre les données à votre API
-        console.log(formData);
-        setSubmitted(true);
-
-        // Redirection après quelques secondes
-        setTimeout(() => {
-            router.push('/');
-        }, 5000);
-    };
 
     const handleVideoPlay = () => {
         if (videoRef.current) {
@@ -65,29 +13,6 @@ export default function Streaming() {
             setIsVideoPlaying(true);
         }
     };
-
-    if (submitted) {
-        return (
-            <div className="min-h-screen bg-gray-50 py-20">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8 text-center">
-                        <div className="inline-flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-600 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <h1 className="text-3xl font-bold mb-4 text-gray-900">Inscription au streaming confirmée !</h1>
-                        <p className="text-xl mb-8 text-gray-600">
-                            Merci de vous être inscrit au streaming d&apos;Engage Paris 2025. Vous recevrez un email avec les instructions de connexion avant l&apos;événement.
-                        </p>
-                        <Link href="/" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                            Retour à l&apos;accueil
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12">
@@ -100,9 +25,17 @@ export default function Streaming() {
                         <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900">
                             Suivez l&apos;événement en direct depuis chez vous
                         </h1>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
                             Accédez à toutes les conférences et tables rondes en streaming HD et interagissez avec les intervenants
                         </p>
+                        <div className="bg-blue-50 p-6 rounded-lg text-left max-w-3xl mx-auto mb-8 border border-blue-100">
+                            <p className="text-gray-700 mb-4">
+                                Ce streaming durera de <span className="font-medium">9h15 à 18h</span>, pour que tu participes à toutes les conférences qui se déroulent dans l&apos;auditorium.
+                            </p>
+                            <p className="text-gray-700">
+                                Pour que tu ne sois pas simple spectateur derrière ton écran, <span className="font-medium">Elisabeth Courland</span>, CS Ops chez Agorapulse, sera notre modératrice en ligne. Elle animera les échanges, relayera les questions aux intervenants, et créera un vrai pont entre la salle et toi.
+                            </p>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
@@ -184,8 +117,13 @@ export default function Streaming() {
                                     Sur inscription uniquement - Places limitées
                                 </p>
                                 <div className="flex justify-center">
-                                    <a href="#inscription" className="w-full inline-flex justify-center items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                                        Réserver ma place
+                                    <a
+                                        href="https://www.engage.paris/registration/676ab85f9b2a8f025d9f48ed"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full inline-flex justify-center items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    >
+                                        Réserver ma place pour le streaming
                                     </a>
                                 </div>
                             </div>
@@ -196,236 +134,456 @@ export default function Streaming() {
                     <div className="mb-16">
                         <div className="text-center mb-8">
                             <h2 className="text-2xl font-bold mb-2 text-gray-900">
-                                Programme des conférences en streaming
+                                Le programme du streaming en un coup d&apos;œil
                             </h2>
-                            <p className="text-gray-600">
-                                Deux jours dédiés aux meilleures pratiques du Customer Success Management
+                            <p className="text-gray-600 mb-4">
+                                Rejoignez-nous le 24 juin 2025 pour une journée dédiée au Customer Success
+                            </p>
+                            <p className="text-gray-600 italic">
+                                Voici le programme complet de la journée.
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
-                                <h3 className="text-lg font-semibold text-blue-800">Jour 1 - 25 Mars 2025</h3>
+                        {/* Version bureau du programme */}
+                        <div className="hidden md:block">
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead>
+                                        <tr className="bg-gray-50">
+                                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">
+                                                Horaire
+                                            </th>
+                                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">
+                                                Type
+                                            </th>
+                                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">
+                                                Titre
+                                            </th>
+                                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Intervenant
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200 text-black">
+                                        <tr>
+                                            <td className="px-4 py-3 border-r text-sm">9h15/9h30</td>
+                                            <td className="px-4 py-3 border-r text-sm"></td>
+                                            <td className="px-4 py-3 border-r text-sm font-medium">🎙️ Ouverture</td>
+                                            <td className="px-4 py-3 text-sm"></td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm">9h30/9h45</td>
+                                            <td className="px-4 py-3 border-r text-sm">Keynote inspirante</td>
+                                            <td className="px-4 py-3 border-r text-sm"></td>
+                                            <td className="px-4 py-3 text-sm font-medium">Surprise</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-4 py-3 border-r text-sm">9h45/10h10</td>
+                                            <td className="px-4 py-3 border-r text-sm">Keynote inspirante</td>
+                                            <td className="px-4 py-3 border-r text-sm">
+                                                Le Customer Success augmenté :<br />
+                                                comment l&apos;IA transforme notre métier
+                                            </td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Aurelien Mars</span><br />
+                                                Hubspot
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm">10h10/10h30</td>
+                                            <td className="px-4 py-3 border-r text-sm">Keynote sponsors</td>
+                                            <td className="px-4 py-3 border-r text-sm">Real World CS Strategies to Crush NRR!</td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Helena Näverbrant</span><br />
+                                                Planhat
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-4 py-3 border-r text-sm">10h30/11h</td>
+                                            <td className="px-4 py-3 border-r text-sm"></td>
+                                            <td className="px-4 py-3 border-r text-sm">☕ Pause</td>
+                                            <td className="px-4 py-3 text-sm"></td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm" rowSpan={2}>11h/12h30</td>
+                                            <td className="px-4 py-3 border-r text-sm" rowSpan={2}>Keynotes mixte</td>
+                                            <td className="px-4 py-3 border-r text-sm">Aligner CS & Produit : les clés d&apos;une collaboration win-win pour faire de la voix du client une réalité produit</td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Bérénice Carrega</span><br />
+                                                Cleafy
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm">Customer Success payant : quand vos clients demandent l&apos;addition et reviennent !</td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Sebastien Brun</span><br />
+                                                SAP
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-4 py-3 border-r text-sm">12h30/14h</td>
+                                            <td className="px-4 py-3 border-r text-sm"></td>
+                                            <td className="px-4 py-3 border-r text-sm">🍽️ Pause déjeuner</td>
+                                            <td className="px-4 py-3 text-sm"></td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm" rowSpan={2}>14h/15h15</td>
+                                            <td className="px-4 py-3 border-r text-sm" rowSpan={2}>Keynotes CS</td>
+                                            <td className="px-4 py-3 border-r text-sm">Multipliez vos contacts, multipliez votre succès</td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Julie Cotavio</span><br />
+                                                LinkedIn
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm">
+                                                Devenir un CSM Stratégique : Vision, Transformation et Impact Client<br />
+                                                Le Cas Orange et leur Transition vers la Fibre
+                                            </td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Jérôme Couzy</span><br />
+                                                Alteryx
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-4 py-3 border-r text-sm">15h15/15h45</td>
+                                            <td className="px-4 py-3 border-r text-sm"></td>
+                                            <td className="px-4 py-3 border-r text-sm">☕ Pause</td>
+                                            <td className="px-4 py-3 text-sm"></td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm">15h45/16h05</td>
+                                            <td className="px-4 py-3 border-r text-sm">Keynote sponsors</td>
+                                            <td className="px-4 py-3 border-r text-sm">The AI-Enhanced, Human-Led Future of Customer Success</td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Keith Pearce</span><br />
+                                                Gainsight
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-4 py-3 border-r text-sm" rowSpan={3}>16h15/17h30</td>
+                                            <td className="px-4 py-3 border-r text-sm" rowSpan={3}>Keynotes Leaders</td>
+                                            <td className="px-4 py-3 border-r text-sm">
+                                                Grandir sans exploser :<br />
+                                                le secret d&apos;un Customer Success scalable
+                                            </td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Jonathan Piloquet</span><br />
+                                                Intercom
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-4 py-3 border-r text-sm" rowSpan={2}>
+                                                Faire du Customer Success un pilier stratégique :<br />
+                                                quelles clés pour embarquer le Comex ?
+                                            </td>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Francesco Bonavita</span><br />
+                                                Edflex
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-4 py-3 text-sm">
+                                                <span className="font-medium">Souphophone Ortega</span><br />
+                                                LexisNexis
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r text-sm">17h30/18h</td>
+                                            <td className="px-4 py-3 border-r text-sm"></td>
+                                            <td className="px-4 py-3 border-r text-sm">🎬 Clôture</td>
+                                            <td className="px-4 py-3 text-sm"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div className="p-6 space-y-6">
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">09:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Ouverture de l&apos;événement</h4>
-                                        <p className="text-gray-600 text-sm">Introduction par Sophie Laurent, Directrice Customer Success chez Salesforce</p>
-                                    </div>
-                                </div>
+                        </div>
 
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">10:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">IA et automatisation : transformer l&apos;expérience client</h4>
-                                        <p className="text-gray-600 text-sm">Conférence avec Thomas Moreau, VP Customer Experience chez HubSpot</p>
-                                    </div>
+                        {/* Version mobile du programme - Cartes séquentielles */}
+                        <div className="md:hidden space-y-4">
+                            {/* Ouverture */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>9h15/9h30</span>
                                 </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-1">🎙️ Ouverture</h4>
+                                </div>
+                            </div>
 
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">14:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Table ronde : Les métriques qui comptent vraiment</h4>
-                                        <p className="text-gray-600 text-sm">Discussion avec 4 experts du Customer Success</p>
+                            {/* Keynote Surprise */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>9h30/9h45</span>
+                                    <span className="text-xs px-2 py-1 bg-blue-400 rounded text-white">Keynote inspirante</span>
+                                </div>
+                                <div className="p-4">
+                                    <div className="mb-2 flex justify-end">
+                                        <span className="font-bold">Surprise</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="px-6 py-4 bg-blue-50 border-b border-blue-100 border-t">
-                                <h3 className="text-lg font-semibold text-blue-800">Jour 2 - 26 Mars 2025</h3>
+                            {/* Keynote IA */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>9h45/10h10</span>
+                                    <span className="text-xs px-2 py-1 bg-blue-400 rounded text-white">Keynote inspirante</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Le Customer Success augmenté : comment l&apos;IA transforme notre métier</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Aurelien Mars</p>
+                                            <p className="text-gray-600 text-sm">Hubspot</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="p-6 space-y-6">
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">09:30</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Scaling Customer Success : adapter sa stratégie</h4>
-                                        <p className="text-gray-600 text-sm">Workshop animé par Marie Durand, Head of Customer Success chez Qonto</p>
+
+                            {/* Keynote NRR */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>10h10/10h30</span>
+                                    <span className="text-xs px-2 py-1 bg-green-400 rounded text-white">Keynote sponsors</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Real World CS Strategies to Crush NRR!</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Helena Näverbrant</p>
+                                            <p className="text-gray-600 text-sm">Planhat</p>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">11:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Customer Success et Revenus : le duo gagnant</h4>
-                                        <p className="text-gray-600 text-sm">Présentation par Pierre Martin, Directeur Relation Client chez Doctolib</p>
+                            {/* Pause */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>10h30/11h</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-1">☕ Pause</h4>
+                                </div>
+                            </div>
+
+                            {/* Keynote CS & Produit */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>11h/12h30</span>
+                                    <span className="text-xs px-2 py-1 bg-purple-400 rounded text-white">Keynotes mixte</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Aligner CS & Produit : les clés d&apos;une collaboration win-win pour faire de la voix du client une réalité produit</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Bérénice Carrega</p>
+                                            <p className="text-gray-600 text-sm">Cleafy</p>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-24 text-gray-500 font-medium">16:00</div>
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900">Clôture et perspectives 2026</h4>
-                                        <p className="text-gray-600 text-sm">Session interactive avec tous les participants</p>
+                            {/* Keynote CS Payant */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>11h/12h30</span>
+                                    <span className="text-xs px-2 py-1 bg-purple-400 rounded text-white">Keynotes mixte</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Customer Success payant : quand vos clients demandent l&apos;addition et reviennent !</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Sebastien Brun</p>
+                                            <p className="text-gray-600 text-sm">SAP</p>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            {/* Pause déjeuner */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>12h30/14h</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-1">🍽️ Pause déjeuner</h4>
+                                </div>
+                            </div>
+
+                            {/* Keynote Multipliez */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>14h/15h15</span>
+                                    <span className="text-xs px-2 py-1 bg-orange-400 rounded text-white">Keynotes CS</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Multipliez vos contacts, multipliez votre succès</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Julie Cotavio</p>
+                                            <p className="text-gray-600 text-sm">LinkedIn</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Keynote CSM Stratégique */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>14h/15h15</span>
+                                    <span className="text-xs px-2 py-1 bg-orange-400 rounded text-white">Keynotes CS</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Devenir un CSM Stratégique : Vision, Transformation et Impact Client - Le Cas Orange et leur Transition vers la Fibre</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Jérôme Couzy</p>
+                                            <p className="text-gray-600 text-sm">Alteryx</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Pause */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>15h15/15h45</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-1">☕ Pause</h4>
+                                </div>
+                            </div>
+
+                            {/* Keynote AI-Enhanced */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>15h45/16h05</span>
+                                    <span className="text-xs px-2 py-1 bg-green-400 rounded text-white">Keynote sponsors</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">The AI-Enhanced, Human-Led Future of Customer Success</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Keith Pearce</p>
+                                            <p className="text-gray-600 text-sm">Gainsight</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Keynote Grandir sans exploser */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>16h15/17h30</span>
+                                    <span className="text-xs px-2 py-1 bg-red-400 rounded text-white">Keynotes Leaders</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Grandir sans exploser : le secret d&apos;un Customer Success scalable</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Jonathan Piloquet</p>
+                                            <p className="text-gray-600 text-sm">Intercom</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Keynote Pilier stratégique - Francesco */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>16h15/17h30</span>
+                                    <span className="text-xs px-2 py-1 bg-red-400 rounded text-white">Keynotes Leaders</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Faire du Customer Success un pilier stratégique : quelles clés pour embarquer le Comex ?</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Francesco Bonavita</p>
+                                            <p className="text-gray-600 text-sm">Edflex</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Keynote Pilier stratégique - Souphophone */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>16h15/17h30</span>
+                                    <span className="text-xs px-2 py-1 bg-red-400 rounded text-white">Keynotes Leaders</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-2">Faire du Customer Success un pilier stratégique : quelles clés pour embarquer le Comex ?</h4>
+                                    <div className="flex items-center mt-3">
+                                        <div className="ml-2">
+                                            <p className="font-bold">Souphophone Ortega</p>
+                                            <p className="text-gray-600 text-sm">LexisNexis</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Clôture */}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div className="bg-primary text-white px-4 py-2 font-medium flex justify-between items-center">
+                                    <span>17h30/18h</span>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-base mb-1">🎬 Clôture</h4>
                                 </div>
                             </div>
                         </div>
 
                         <div className="text-center mt-6 text-sm text-gray-500">
-                            <p>Programme complet et détaillé disponible après inscription</p>
+                            <p>Programme susceptible de modifications - Détails complets disponibles après inscription</p>
                         </div>
                     </div>
 
                     {/* Formulaire d'inscription */}
                     <div id="inscription" className="bg-white rounded-lg shadow-md p-8">
                         <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">
-                            Inscrivez-vous au streaming
+                            Inscrivez-vous au streaming Customer Success 2025
                         </h2>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label htmlFor="prenom" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Prénom *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="prenom"
-                                        name="prenom"
-                                        value={formData.prenom}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="nom" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Nom *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="nom"
-                                        name="nom"
-                                        value={formData.nom}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Email professionnel *
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="entreprise" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Entreprise *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="entreprise"
-                                        name="entreprise"
-                                        value={formData.entreprise}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="taille" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Taille de l&apos;entreprise *
-                                    </label>
-                                    <select
-                                        id="taille"
-                                        name="taille"
-                                        value={formData.taille}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    >
-                                        <option value="">Sélectionnez...</option>
-                                        <option value="1-49">1-49 employés</option>
-                                        <option value="50-199">50-199 employés</option>
-                                        <option value="200-499">200-499 employés</option>
-                                        <option value="500-999">500-999 employés</option>
-                                        <option value="1000+">1000+ employés</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="fonction" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Fonction *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="fonction"
-                                        name="fonction"
-                                        value={formData.fonction}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Ex: Directeur Customer Success"
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Thématiques d'intérêt */}
-                            <div className="mt-8">
-                                <h3 className="text-lg font-medium text-gray-900 mb-4">Quelles thématiques vous intéressent particulièrement ?</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    {[
-                                        'IA et automatisation en CSM',
-                                        'Stratégies de rétention client',
-                                        'Customer Health Score',
-                                        'Voice of Customer',
-                                        'Scaling Customer Success',
-                                        'CSM et Revenue Growth',
-                                        'Onboarding client',
-                                        'Success Planning'
-                                    ].map((theme) => (
-                                        <div key={theme} className="flex items-start">
-                                            <input
-                                                id={`stream-${theme}`}
-                                                name="interet"
-                                                type="checkbox"
-                                                value={theme}
-                                                onChange={handleCheckboxChange}
-                                                className="h-4 w-4 mt-1 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                            />
-                                            <label htmlFor={`stream-${theme}`} className="ml-2 block text-sm text-gray-700">
-                                                {theme}
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Submit Button */}
-                            <div className="mt-8 flex justify-center">
-                                <button
-                                    type="submit"
-                                    className="px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                >
-                                    Réserver ma place pour le streaming
-                                </button>
-                            </div>
-
-                            {/* Privacy notice */}
-                            <div className="mt-4 text-center text-sm text-gray-500">
+                        <div className="mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                            <div className="space-y-4 text-gray-700">
                                 <p>
-                                    En vous inscrivant, vous acceptez notre{' '}
-                                    <Link href="/politique-confidentialite" className="text-blue-600 hover:underline">
-                                        politique de confidentialité
-                                    </Link>
-                                    {' '}et de recevoir des communications liées à l&apos;événement.
+                                    Ton inscription te donnera également accès à <span className="font-medium">l&apos;ensemble des supports</span> partagés sur l&apos;événement (toutes les sessions, keynotes...) ainsi que les CR des ateliers.
                                 </p>
+                                <p>
+                                    L&apos;app du networking te sera ouverte, pour prendre contact avec tous les participants inscrits et les retrouver facilement sur Linkedin.
+                                </p>
+                                <div className="pt-4 mt-4 border-t border-gray-200">
+                                    <p className="font-medium">A bientôt !</p>
+                                    <p>Justine, Sue, Valentin & Gabrièle</p>
+                                </div>
                             </div>
-                        </form>
+                        </div>
+
+                        {/* Submit Button */}
+                        <div className="mt-8 flex justify-center">
+                            <a
+                                href="https://www.engage.paris/registration/676ab85f9b2a8f025d9f48ed"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                Réserver ma place pour le streaming
+                            </a>
+                        </div>
+
+                        {/* Privacy notice */}
+                        <div className="mt-4 text-center text-sm text-gray-500">
+                            <p>
+                                En vous inscrivant, vous acceptez notre{' '}
+                                <Link href="/politique-confidentialite" className="text-blue-600 hover:underline">
+                                    politique de confidentialité
+                                </Link>
+                                {' '}et de recevoir des communications liées à l&apos;événement.
+                            </p>
+                        </div>
+
                     </div>
 
                     {/* Alternative */}

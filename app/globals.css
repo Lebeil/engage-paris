@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.cdnfonts.com/css/didot');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +8,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+
+  /* Engage Paris couleurs */
+  --primary-color: #1b357f;
+  --secondary-color: #005693;
+  --gradient-color: #005693;
+  --neutral-color: #bfc1be;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,6 +37,7 @@ body {
   background: var(--background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Mulish', sans-serif;
 }
 
 * {
@@ -41,5 +54,48 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Didot', serif;
+  }
+}
+
+/* Animation simple pour éviter problèmes d'hydratation */
+.fade-in {
+  animation: fadeIn 0.8s ease-in;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

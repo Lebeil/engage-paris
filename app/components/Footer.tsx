@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '@/public/images/logo.png';
+import logo from '@/public/images/logo_blanc.png';
 
 export default function Footer() {
     return (

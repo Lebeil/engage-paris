@@ -20,8 +20,11 @@ export default function Header() {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex space-x-8">
-                        <Link href="/evenement" className="text-gray-700 hover:text-blue-600 font-medium">
+                        <Link href="https://engage-paris-lp.vercel.app/" className="text-gray-700 hover:text-blue-600 font-medium">
                             L&apos;événement
+                        </Link>
+                        <Link href="/programme" className="text-gray-700 hover:text-blue-600 font-medium">
+                            Programme 2025
                         </Link>
                         <Link href="/streaming" className="text-gray-700 hover:text-blue-600 font-medium">
                             Streaming

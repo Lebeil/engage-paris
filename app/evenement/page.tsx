@@ -17,7 +17,7 @@ export default function Evenement() {
                             Engage Paris 2025
                         </h1>
                         <p className="text-xl sm:text-2xl text-blue-100 mb-8">
-                            L&lsquo;événement de référence pour les professionnels du Customer Success Manager en France
+                            L&lsquo;événement de référence pour les professionnels du Customer Success Management en France
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
                             <Link href="/inscription" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50 shadow-lg">
@@ -39,7 +39,7 @@ export default function Evenement() {
                             L&apos;événement Customer Success de l&lsquo;année
                         </h2>
                         <p className="text-xl text-gray-600">
-                            Deux jours d&rsquo;immersion au cœur des stratégies et pratiques qui façonnent le Customer Success Manager aujourd&apos;hui et demain.
+                            Deux jours d&rsquo;immersion au cœur des stratégies et pratiques qui façonnent le Customer Success Management aujourd&apos;hui et demain.
                         </p>
                     </div>
 
@@ -108,7 +108,7 @@ export default function Evenement() {
                                 <div className="ml-4">
                                     <h3 className="text-lg font-medium text-gray-900">Inspiration et innovation</h3>
                                     <p className="mt-2 text-gray-600">
-                                        Découvrez les dernières tendances et innovations qui façonnent l&apos;avenir du Customer Success Manager.
+                                        Découvrez les dernières tendances et innovations qui façonnent l&apos;avenir du Customer Success Management.
                                     </p>
                                 </div>
                             </div>
@@ -176,71 +176,95 @@ export default function Evenement() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto text-center mb-12">
                         <h2 className="text-3xl font-bold mb-4 text-gray-900">
-                            Programme 2025
+                            Aperçu du programme
                         </h2>
                         <p className="text-xl text-gray-600">
-                            Une journée entière dédiée aux meilleures pratiques du Customer Success Manager
+                            Un programme riche et diversifié pour répondre aux besoins de tous les professionnels du Customer Success
                         </p>
                     </div>
 
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white rounded-lg shadow-md overflow-hidden">
                             <div className="px-6 py-4 bg-blue-50 border-b border-blue-100">
-                                <h3 className="text-lg font-semibold text-blue-800">24 Juin 2025</h3>
+                                <h3 className="text-lg font-semibold text-blue-800">Jour 1 - 25 Mars 2025</h3>
                             </div>
                             <div className="p-6 space-y-6">
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">9h15</div>
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">09:00</div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Ouverture</h4>
-                                        <p className="text-gray-600 text-sm">Session d&apos;ouverture de la conférence</p>
+                                        <h4 className="font-semibold text-gray-900">Ouverture et keynote d&lsquo;introduction</h4>
+                                        <p className="text-gray-600 text-sm">Les grandes tendances qui façonnent l&lsquo;avenir du Customer Success</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">9h45</div>
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">10:30</div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Le Customer Success augmenté</h4>
-                                        <p className="text-gray-600 text-sm">Comment l&apos;IA transforme notre métier</p>
+                                        <h4 className="font-semibold text-gray-900">Sessions parallèles</h4>
+                                        <p className="text-gray-600 text-sm">Parcours Stratégie, Opérations, Leadership et Tech & IA</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">11h00</div>
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">14:00</div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Aligner CS & Produit</h4>
-                                        <p className="text-gray-600 text-sm">Les clés d&apos;une collaboration win-win pour faire de la voix du client une réalité produit</p>
+                                        <h4 className="font-semibold text-gray-900">Table ronde</h4>
+                                        <p className="text-gray-600 text-sm">Comment le Customer Success devient un moteur de croissance</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">14h00</div>
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">18:00</div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Multipliez vos contacts</h4>
-                                        <p className="text-gray-600 text-sm">Multipliez votre succès</p>
+                                        <h4 className="font-semibold text-gray-900">Cocktail networking</h4>
+                                        <p className="text-gray-600 text-sm">Échanges informels entre participants et intervenants</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="px-6 py-4 bg-blue-50 border-b border-blue-100 border-t">
+                                <h3 className="text-lg font-semibold text-blue-800">Jour 2 - 26 Mars 2025</h3>
+                            </div>
+                            <div className="p-6 space-y-6">
+                                <div className="flex items-start">
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">09:30</div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-900">Keynote inspirante</h4>
+                                        <p className="text-gray-600 text-sm">L&#39;impact de l&lsquo;IA sur l&apos;avenir du Customer Success</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">16h15</div>
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">11:00</div>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900">Grandir sans exploser</h4>
-                                        <p className="text-gray-600 text-sm">Le secret d&apos;un Customer Success scalable</p>
+                                        <h4 className="font-semibold text-gray-900">Ateliers pratiques</h4>
+                                        <p className="text-gray-600 text-sm">Sessions interactives en petits groupes sur des sujets spécifiques</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start">
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">14:30</div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-900">Retours d&lsquo;expérience</h4>
+                                        <p className="text-gray-600 text-sm">Études de cas présentées par des entreprises de référence</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start">
+                                    <div className="flex-shrink-0 w-20 text-gray-500 font-medium">16:30</div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-900">Clôture et remise des CS Awards</h4>
+                                        <p className="text-gray-600 text-sm">Célébration de l&apos;excellence en Customer Success</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="text-center mt-8">
-                            <p className="text-gray-600 text-sm mb-6">Découvrez le programme complet avec tous les intervenants</p>
-                            <div className="flex flex-col sm:flex-row justify-center gap-4">
-                                <Link href="/programme" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                                    Voir le programme détaillé
-                                </Link>
-                                <Link href="/inscription" className="inline-flex items-center justify-center px-5 py-3 border border-blue-600 text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50">
-                                    Réserver ma place
-                                </Link>
-                            </div>
+                            <p className="text-gray-600 text-sm mb-4">Programme détaillé disponible prochainement. Sous réserve de modifications.</p>
+                            <Link href="/inscription" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                Réserver ma place
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -20,17 +20,11 @@ export default function Header() {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex space-x-8">
-                        <Link href="https://engage-paris-lp.vercel.app/" className="text-gray-700 hover:text-blue-600 font-medium">
+                        <Link href="/evenement" className="text-gray-700 hover:text-blue-600 font-medium">
                             L&apos;événement
-                        </Link>
-                        <Link href="/programme" className="text-gray-700 hover:text-blue-600 font-medium">
-                            Programme
                         </Link>
                         <Link href="/streaming" className="text-gray-700 hover:text-blue-600 font-medium">
                             Streaming
-                        </Link>
-                        <Link href="/speakers" className="text-gray-700 hover:text-blue-600 font-medium">
-                            Intervenir
                         </Link>
                         <Link href="/blog" className="text-gray-700 hover:text-blue-600 font-medium">
                             Blog
@@ -73,9 +67,6 @@ export default function Header() {
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link href="/evenement" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                             L&apos;événement
-                        </Link>
-                        <Link href="/programme" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
-                            Programme
                         </Link>
                         <Link href="/streaming" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                             Streaming

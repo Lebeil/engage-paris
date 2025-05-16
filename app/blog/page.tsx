@@ -117,8 +117,8 @@ export default function Blog() {
                                     key={category}
                                     href="#"
                                     className={`px-4 py-2 rounded-full text-sm ${category === 'Toutes'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                                            ? 'bg-blue-600 text-white'
+                                            : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                                         }`}
                                 >
                                     {category}
